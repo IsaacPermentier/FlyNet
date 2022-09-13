@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlyNet.Vloot
 {
-    public class Vliegtuigen : IKost
+    public class Vliegtuig : IKost
     {
         public decimal BasisKostprijsPerDag { get; set; }
         private string typeValue;
@@ -44,6 +44,13 @@ namespace FlyNet.Vloot
                 else
                     throw new Exception("Vliegbereik is verplicht");
             }
+        }
+        public Vliegtuig(string type, int kruissnelheid, int vliegbereik, decimal basisKostprijsPerDag)
+        {
+            Type = type;
+            Kruissnelheid = kruissnelheid;
+            Vliegbereik = vliegbereik;
+            BasisKostprijsPerDag = basisKostprijsPerDag;
         }
         public decimal BerekenTotaleKostprijsperDag()
         {

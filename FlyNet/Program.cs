@@ -1,6 +1,7 @@
 ﻿using System;
 using FlyNet.Personeel;
 using FlyNet.Vloot;
+using System.IO;
 
 namespace FlyNet
 {
@@ -8,38 +9,40 @@ namespace FlyNet
     {
         public static void Main(string[] args)
         {
-            List<CockpitPersoneelslid> cockpitpersoneel = new List<CockpitPersoneelslid>
+            List<Personeelslid> personeel = new List<Personeelslid>
             {
-            new CockpitPersoneelslid {PersoneelslidID = 1, Naam = "Captain Kirk", BasisKostprijsPerDag = 500m, Graad = Graad.Captain, Vlieguren = 500 },
-            new CockpitPersoneelslid {PersoneelslidID = 2, Naam = "Spock", BasisKostprijsPerDag = 400m, Graad = Graad.SecondOfficer, Vlieguren = 500 }
+            new CockpitPersoneelslid(1, "Captain Kirk", 500m, Graad.Captain, 5000),
+            new CockpitPersoneelslid(2, "Spock", 400m, Graad.SecondOfficer, 4500),
+            new CabinePersoneelslid(3, "Pavel Checkov", 300m, Graad.Purser, "deur1"),
+            new CabinePersoneelslid(4, "Luke Skywalker", 300m, Graad.Steward, "nooduitgang")
             };
 
-            List<CabinePersoneelslid> cabinepersoneel = new List<CabinePersoneelslid>
-            {
-            new CabinePersoneelslid {PersoneelslidID = 3, Naam = "Pavel Checkov", BasisKostprijsPerDag = 300m, Graad = Graad.Purser, Werkpositie = "deur1" },
-            new CabinePersoneelslid {PersoneelslidID = 4, Naam = "Luke Skywalker", BasisKostprijsPerDag = 300m, Graad = Graad.Steward, Werkpositie = "nooduitgang" }
-            };
-            
             Vliegmaatschappij brusselsAirlines = new Vliegmaatschappij(1, Maatschappij.BrusselsAirlines);
-            brusselsAirlines.Vloot = new List<Vliegtuigen>
+            brusselsAirlines.Vloot = new List<Vliegtuig>
             {
-                new Vliegtuigen{Type = "Airbus A330-200", Kruissnelheid = 870, Vliegbereik = 10800, BasisKostprijsPerDag = 4000m },
-                new Vliegtuigen{Type = "Airbus A320", Kruissnelheid = 840, Vliegbereik = 6100, BasisKostprijsPerDag = 3000m }
+                new Vliegtuig("Airbus A330-200", 870, 10800, 4000m),
+                new Vliegtuig("Airbus A320", 840, 6100, 3000m)
             };
             Vliegmaatschappij tuiFly = new Vliegmaatschappij(2, Maatschappij.TUIFly);
-            tuiFly.Vloot = new List<Vliegtuigen>
+            tuiFly.Vloot = new List<Vliegtuig>
             {
-                 new Vliegtuigen {Type = "Boeing 737-800", Kruissnelheid = 820, Vliegbereik = 6204, BasisKostprijsPerDag = 2500m},
-                 new Vliegtuigen {Type = "Boeing 787-300", Kruissnelheid = 820, Vliegbereik = 6370, BasisKostprijsPerDag = 2000m}
+                 new Vliegtuig ("Boeing 737-800", 820, 6204, 2500m),
+                 new Vliegtuig ("Boeing 787-300", 820, 6370, 2000m)
             };
-            Console.WriteLine(brusselsAirlines.Vloot[0].Type);
+            Vlucht ny = new Vlucht(1, "New York", 2, brusselsAirlines, brusselsAirlines.Vloot[0], personeel);
+            Vlucht sy = new Vlucht(2, "Sydney", 3, tuiFly, tuiFly.Vloot[0], personeel);
+            Vlucht si = new Vlucht(3, "Singapore", 1, brusselsAirlines, brusselsAirlines.Vloot[1], personeel);
+            List<Vlucht> vluchten = new List<Vlucht> { ny, sy, si };
 
-            List<Vluchten> vluchten = new List<Vluchten>
+
+            foreach (var vlucht in vluchten)
             {
-                new Vluchten {VluchtID = 1, Bestemming = "New York", Vliegmaatschappij = brusselsAirlines, Toestel = brusselsAirlines.Vloot[0].Type, Duurtijd = 2, Cockpitpersoneelsleden = cockpitpersoneel[0].Naam, Cabinepersoneelsleden = cabinepersoneel}
-            };
-            Console.WriteLine(vluchten[0]);
-
+                Lijnentrekker lijn = new Lijnentrekker();
+                lijn.TrekLijn(100, '=');
+                Console.WriteLine($"VluchtID: {vlucht.VluchtID} - Bestemming {vlucht.Bestemming} ({vlucht.Duurtijd} dag(en))");
+                lijn.TrekLijn(100, '=');
+                Console.WriteLine($"Vliegmaatschappij: {vlucht.Vliegmaatschappij.MaatschappijNaam} - Toestel: {vlucht.Toestel.Type} (basis kostprijs per dag: {vlucht.Toestel.BasisKostprijsPerDag} euro)");
+            }
         }
     }
 }

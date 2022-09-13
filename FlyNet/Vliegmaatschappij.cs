@@ -9,13 +9,12 @@ namespace FlyNet.Vloot
     public class Vliegmaatschappij
     {
         public int VliegmaatschappijID { get; set; }
-        public Maatschappij Maatschappij { get; set; }
-        public Vliegmaatschappij(int vliegmaatschappijID, Maatschappij maatschappij)
+        public Maatschappij MaatschappijNaam { get; set; }
+        public List<Vliegtuig> Vloot { get; set; }
+        public Vliegmaatschappij(int vliegmaatschappijID, Maatschappij maatschappijNaam)
         {
             VliegmaatschappijID = vliegmaatschappijID;
-            Maatschappij = maatschappij;
+            MaatschappijNaam = maatschappijNaam;
         }
-        public List<Vliegtuigen> Vloot { get; set; }
-
     }   
 }

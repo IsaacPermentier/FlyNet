@@ -21,7 +21,12 @@ namespace FlyNet.Personeel
                     throw new Exception($"Verkeerde graad ({value}), deze behoort niet tot de mogelijke graden van de cockpitcrew" +
                         $"(Captain, SeniorFlightOfficer, SecondOfficer of JuniorFlightOfficer)");                
             }
-        }        
+        }
+        public CockpitPersoneelslid(int personeelslidID, string naam, decimal basisKostprijsPerDag, Graad graad, int vlieguren)
+            : base(personeelslidID, naam, basisKostprijsPerDag, graad)
+        {
+            Vlieguren = vlieguren;
+        }
         public override string ToString()
         {
             string cockpitPersoneelslid = $"{base.ToString()} - (basiskostprijs per dag: {BasisKostprijsPerDag} euro";

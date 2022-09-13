@@ -34,6 +34,12 @@ namespace FlyNet.Personeel
         }
 
         public decimal BasisKostprijsPerDag {get; set; }
+        public Personeelslid(int personeelslidID, string naam, decimal basisKostprijsPerDag)
+        {
+            PersoneelslidID = personeelslidID;
+            Naam = naam;
+            BasisKostprijsPerDag = basisKostprijsPerDag;
+        }
 
         public abstract decimal BerekenTotaleKostprijsperDag();
        

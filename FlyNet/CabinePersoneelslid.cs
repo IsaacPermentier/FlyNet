@@ -22,6 +22,11 @@ namespace FlyNet.Personeel
                         $"(Steward of Purser)");
             }
         }
+        public CabinePersoneelslid(int personeelslidID, string naam, decimal basisKostprijsPerDag, Graad graad, string werkpositie)
+            : base(personeelslidID, naam, basisKostprijsPerDag, graad)
+        {
+            Werkpositie = werkpositie;
+        }
         public override decimal BerekenTotaleKostprijsperDag()
         {
             decimal totaleKostprijsPerDag = BasisKostprijsPerDag;

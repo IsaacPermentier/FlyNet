@@ -11,7 +11,11 @@ namespace FlyNet.Personeel
         public Graad Graad { get; set; }
         public Certificaat Certificaten { get; set; }
         public override abstract decimal BerekenTotaleKostprijsperDag();
-        
-
+        public VliegendPersoneelslid(int personeelslidID, string naam, decimal basisKostprijsPerDag, Graad graad)
+            : base(personeelslidID, naam, basisKostprijsPerDag)
+        {
+            Graad = graad;
+        }
     }
 }
+   

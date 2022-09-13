@@ -8,27 +8,38 @@ using FlyNet.Personeel;
 
 namespace FlyNet
 {
-    public class Vluchten
+    public class Vlucht
     {
         public int VluchtID { get; set; }
         public string Bestemming { get; set; }
         public int Duurtijd { get; set; }
         public CabinePersoneelslid Cabinepersoneelslid{ get; set; }
         public CockpitPersoneelslid Cockpitpersoneelslid { get; set; }
-        public Vliegtuigen Vliegtuig { get; set; }
         public Vliegmaatschappij Vliegmaatschappij { get; set; }
-
-        private string toestelValue;
-        public string Toestel {get; set;}
-        public List<CockpitPersoneelslid> Cockpitpersoneelsleden { get; set; }
-        public List<CabinePersoneelslid> Cabinepersoneelsleden { get; set; }
+        public Vliegtuig Toestel {get; set;}
+        public List<Personeelslid> Personeel { get; set; }
+        public Vlucht(int vluchtID, string bestemming, int duurtijd, Vliegmaatschappij vliegmaatschappij, Vliegtuig toestel, List<Personeelslid> personeel)
+        {
+            VluchtID = vluchtID;
+            Bestemming = bestemming;
+            Vliegmaatschappij = vliegmaatschappij;
+            Duurtijd = duurtijd;           
+            Toestel = toestel;
+            Personeel = personeel;
+        }
         public decimal BerekenVluchtKost()
         {
-            decimal vliegtuigkost = Vliegtuig.BasisKostprijsPerDag;
+            decimal vliegtuigkost = Toestel.BasisKostprijsPerDag;
             decimal cabinePersoneelskost = Cabinepersoneelslid.BerekenTotaleKostprijsperDag();
             decimal cockpitPersoneelskost = Cockpitpersoneelslid.BerekenTotaleKostprijsperDag();
             return (vliegtuigkost + cabinePersoneelskost + cockpitPersoneelskost) * Duurtijd;
            
+        }
+        public void afbeelden()
+        {
+            
+
+            
         }
     }
 }
