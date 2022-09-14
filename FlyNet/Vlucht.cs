@@ -29,17 +29,23 @@ namespace FlyNet
         }
         public decimal BerekenVluchtKost()
         {
-            decimal vliegtuigkost = Toestel.BasisKostprijsPerDag;
-            decimal cabinePersoneelskost = Cabinepersoneelslid.BerekenTotaleKostprijsperDag();
-            decimal cockpitPersoneelskost = Cockpitpersoneelslid.BerekenTotaleKostprijsperDag();
-            return (vliegtuigkost + cabinePersoneelskost + cockpitPersoneelskost) * Duurtijd;
+            var persooneelTotaal = 0.00m;           
+            var vliegtuigkost = Toestel.BasisKostprijsPerDag;
+            foreach (VliegendPersoneelslid persoon in Personeel)
+            {
+                if (persoon is CockpitPersoneelslid)
+                {
+                    var perPersoon = persoon.BerekenTotaleKostprijsperDag();
+                    persooneelTotaal += perPersoon;
+                }
+                if (persoon is CabinePersoneelslid)
+                {
+                    var perPersoon = persoon.BerekenTotaleKostprijsperDag();
+                    persooneelTotaal += perPersoon;
+                }
+            };
+            return (vliegtuigkost + persooneelTotaal) * Duurtijd;
            
-        }
-        public void afbeelden()
-        {
-            
-
-            
         }
     }
 }

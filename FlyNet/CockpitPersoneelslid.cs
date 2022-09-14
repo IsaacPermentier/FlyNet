@@ -10,7 +10,7 @@ namespace FlyNet.Personeel
     {
         public int Vlieguren { get; set; }
         private Graad graadValue;
-        public Graad Graad
+        public override Graad Graad
         {
             get => graadValue;
             set
@@ -18,32 +18,44 @@ namespace FlyNet.Personeel
                if (value != Graad.Steward && value != Graad.Purser)
                         graadValue = value;
                else
-                    throw new Exception($"Verkeerde graad ({value}), deze behoort niet tot de mogelijke graden van de cockpitcrew" +
+                    throw new GraadException($"Verkeerde graad ({value}), deze behoort niet tot de mogelijke graden van de cockpitcrew" +
                         $"(Captain, SeniorFlightOfficer, SecondOfficer of JuniorFlightOfficer)");                
             }
         }
-        public CockpitPersoneelslid(int personeelslidID, string naam, decimal basisKostprijsPerDag, Graad graad, int vlieguren)
-            : base(personeelslidID, naam, basisKostprijsPerDag, graad)
+        public class GraadException : Exception
+        {
+
+            public GraadException(string message) : base(message)
+            {
+            }
+        }
+        public CockpitPersoneelslid(int personeelslidID, string naam, decimal basisKostprijsPerDag, Graad graad, List<Certificaat> certificaten, int vlieguren)
+            : base(personeelslidID, naam, basisKostprijsPerDag, graad, certificaten)
         {
             Vlieguren = vlieguren;
         }
         public override string ToString()
         {
-            string cockpitPersoneelslid = $"{base.ToString()} - (basiskostprijs per dag: {BasisKostprijsPerDag} euro";
-            return cockpitPersoneelslid.ToString();
+            return @$"Vlieguren: {Vlieguren}
+Totale kostprijs per dag: {BerekenTotaleKostprijsperDag()} euro";
         }
 
         public override decimal BerekenTotaleKostprijsperDag()
         {
-            decimal totaleKostprijsPerDag = BasisKostprijsPerDag;
+            decimal totaleKostprijsPerDag = 0m;
             if (Graad == Graad.Captain)
-                totaleKostprijsPerDag *= 1.3m;
-            else if (Graad == Graad.SeniorFilghtOfficer)
-                totaleKostprijsPerDag *= 1.2m;
-            else if (Graad == Graad.SecondOfficer)
-                totaleKostprijsPerDag *= 1.1m;
-            else
+                totaleKostprijsPerDag = BasisKostprijsPerDag * 1.30m;
+            if (Graad == Graad.SeniorFilghtOfficer)
+                totaleKostprijsPerDag = BasisKostprijsPerDag * 1.20m;
+            if (Graad == Graad.SecondOfficer)
+                totaleKostprijsPerDag = BasisKostprijsPerDag * 1.10m;
+            if (Graad == Graad.JuniorFlightOfficer)
                 totaleKostprijsPerDag = BasisKostprijsPerDag;
+            foreach (var certificaat in Certificaten)
+            {
+                if (certificaat.CertificaatAfkorting.ToString() == "CPL")
+                    totaleKostprijsPerDag += 50m;
+            }
             return totaleKostprijsPerDag;
         }
     }

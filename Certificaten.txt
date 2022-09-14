@@ -1,0 +1,72 @@
+            //****************************************************************************************
+            // Certificaten
+            //****************************************************************************************
+
+            Certificaat PPL = new Certificaat
+            {
+                CertificaatAfkorting = "PPL",
+                CertificaatOmschrijving = "Private Pilot License"
+            };
+
+
+            Certificaat ATPL = new Certificaat
+            {
+                CertificaatAfkorting = "ATPL",
+                CertificaatOmschrijving = "Airline Transport Pilot License"
+            };
+
+            Certificaat IR = new Certificaat
+            {
+                CertificaatAfkorting = "IR",
+                CertificaatOmschrijving = "Instrument Rating"
+            };
+
+            Certificaat CPL = new Certificaat
+            {
+                CertificaatAfkorting = "CPL",
+                CertificaatOmschrijving = "Commercial Pilot License"
+            };
+
+            Certificaat ME = new Certificaat
+            {
+                CertificaatAfkorting = "ME",
+                CertificaatOmschrijving = "Multi Engine"
+            };
+
+            Certificaat MCC = new Certificaat
+            {
+                CertificaatAfkorting = "MCC",
+                CertificaatOmschrijving = "Multi Crew Concept"
+            };
+
+            Certificaat EHBO = new Certificaat
+            {
+                CertificaatAfkorting = "EHBO",
+                CertificaatOmschrijving = "First Aid"
+            };
+
+            Certificaat EVAC = new Certificaat
+            {
+                CertificaatAfkorting = "EVAC",
+                CertificaatOmschrijving = "Evacution Procedures"
+            };
+
+            Certificaat FIRE = new Certificaat
+            {
+                CertificaatAfkorting = "FIRE",
+                CertificaatOmschrijving = "Fire Fighting"
+            };
+
+
+            Certificaat SURV = new Certificaat
+            {
+                CertificaatAfkorting = "SURV",
+                CertificaatOmschrijving = "Survival"
+            };
+
+
+            Certificaat IFS = new Certificaat
+            {
+                CertificaatAfkorting = "IFS",
+                CertificaatOmschrijving = "In Flight Service"
+            };

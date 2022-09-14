@@ -10,10 +10,15 @@ namespace FlyNet.Personeel
     {
         public string CertificaatAfkorting { get; set; }
         public string CertificaatOmschrijving { get; set; }
+        public Certificaat() { }
+        public Certificaat(string certificaatAfkorting, string certificaatOmschrijving)
+        {
+            CertificaatAfkorting = certificaatAfkorting;
+            CertificaatOmschrijving = certificaatOmschrijving;
+        }
         public override string ToString()
         {
-            string certificaat = $"{CertificaatAfkorting}, {CertificaatOmschrijving}";
-            return certificaat.ToString();
+            return $"{CertificaatAfkorting}, {CertificaatOmschrijving}";
         }
     }
     

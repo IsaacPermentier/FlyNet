@@ -10,7 +10,7 @@ namespace FlyNet.Personeel
     {
         public string Werkpositie { get; set; }
         private Graad graadValue;
-        public Graad Graad
+        public override Graad Graad
         {
             get => graadValue;
             set
@@ -18,28 +18,41 @@ namespace FlyNet.Personeel
                 if (value == Graad.Steward || value == Graad.Purser)
                     graadValue = value;
                 else
-                    throw new Exception($"Verkeerde graad ({value}), deze behoort niet tot de mogelijke graden van de cabinecrew" +
+                    throw new GraadException($"Verkeerde graad ({value}), deze behoort niet tot de mogelijke graden van de cabinecrew" +
                         $"(Steward of Purser)");
             }
         }
-        public CabinePersoneelslid(int personeelslidID, string naam, decimal basisKostprijsPerDag, Graad graad, string werkpositie)
-            : base(personeelslidID, naam, basisKostprijsPerDag, graad)
+        public class GraadException : Exception
+        {
+
+            public GraadException(string message) : base(message)
+            {
+            }
+        }
+        public CabinePersoneelslid(int personeelslidID, string naam, decimal basisKostprijsPerDag, Graad graad, List<Certificaat> certificaten, string werkpositie)
+            : base(personeelslidID, naam, basisKostprijsPerDag, graad, certificaten)
         {
             Werkpositie = werkpositie;
         }
+        
         public override decimal BerekenTotaleKostprijsperDag()
         {
-            decimal totaleKostprijsPerDag = BasisKostprijsPerDag;
+            decimal totaleKostprijsPerDag = 0m;
             if (Graad == Graad.Purser)
-                totaleKostprijsPerDag *= 1.2m;            
-            else
+                totaleKostprijsPerDag = BasisKostprijsPerDag * 1.20m;            
+            if (Graad == Graad.Steward)
                 totaleKostprijsPerDag = BasisKostprijsPerDag;
+            foreach (var certificaat in Certificaten)
+            {
+                if (certificaat.CertificaatAfkorting.ToString() == "EHBO")
+                    totaleKostprijsPerDag += 5m;
+            }
             return totaleKostprijsPerDag;
         }
         public override string ToString()
         {
-            string cabinePersoneelslid = $"{base.ToString()} - (basiskostprijs per dag: {BasisKostprijsPerDag} euro";
-            return cabinePersoneelslid.ToString();
+            return @$"Werkpositie: {Werkpositie}
+Totale kostprijs per dag: {BerekenTotaleKostprijsperDag()} euro";
         }
     }
 }

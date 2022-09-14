@@ -8,13 +8,26 @@ namespace FlyNet.Personeel
 {
     public abstract class VliegendPersoneelslid : Personeelslid
     {
-        public Graad Graad { get; set; }
-        public Certificaat Certificaten { get; set; }
-        public override abstract decimal BerekenTotaleKostprijsperDag();
-        public VliegendPersoneelslid(int personeelslidID, string naam, decimal basisKostprijsPerDag, Graad graad)
+        public virtual Graad Graad { get; set; }
+        public List<Certificaat> Certificaten { get; set; }
+        public VliegendPersoneelslid(int personeelslidID, string naam, decimal basisKostprijsPerDag, Graad graad, List<Certificaat> certificaten)
             : base(personeelslidID, naam, basisKostprijsPerDag)
         {
             Graad = graad;
+            Certificaten = certificaten;
+        }
+        public override abstract decimal BerekenTotaleKostprijsperDag();
+        public string EersteStuk()
+        {
+            return @$"00{PersoneelslidID} - {Naam} (basiskostprijs per dag: {BasisKostprijsPerDag} euro)
+Graad: {Graad}
+Certificaten: ";
+        }
+        public override string ToString()
+        {
+            return @$"00{PersoneelslidID} - {Naam} (basiskostprijs per dag: {BasisKostprijsPerDag} euro)
+Graad: {Graad}
+Certificaten: ";
         }
     }
 }
