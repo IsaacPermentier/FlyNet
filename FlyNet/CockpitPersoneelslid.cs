@@ -58,5 +58,11 @@ Totale kostprijs per dag: {BerekenTotaleKostprijsperDag()} euro";
             }
             return totaleKostprijsPerDag;
         }
+        public override void Afbeelden()
+        {
+            base.Afbeelden();
+            Console.WriteLine($"Vlieguren: {Vlieguren}");
+            Console.WriteLine($"Totale kostprijs per dag: {BerekenTotaleKostprijsperDag()} euro");
+        }
     }
 }

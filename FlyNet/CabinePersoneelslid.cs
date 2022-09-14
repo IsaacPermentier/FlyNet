@@ -51,8 +51,15 @@ namespace FlyNet.Personeel
         }
         public override string ToString()
         {
-            return @$"Werkpositie: {Werkpositie}
+            return @$"{base.ToString()}
+Werkpositie: {Werkpositie}
 Totale kostprijs per dag: {BerekenTotaleKostprijsperDag()} euro";
+        }
+        public override void Afbeelden()
+        {
+            base.Afbeelden();
+            Console.WriteLine($"Werkpositie {Werkpositie}");
+            Console.WriteLine($"Totale kostprijs per dag: {BerekenTotaleKostprijsperDag()} euro");
         }
     }
 }

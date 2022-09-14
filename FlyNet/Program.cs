@@ -140,22 +140,15 @@ namespace FlyNet
                 foreach (VliegendPersoneelslid persoon in vlucht.Personeel)
                     if (persoon is CockpitPersoneelslid)
                     {
-                        Console.WriteLine(persoon.EersteStuk());
-                        foreach (var certificaat in persoon.Certificaten)
-                            Console.WriteLine($"   {certificaat.CertificaatOmschrijving} ({certificaat.CertificaatAfkorting})");
-                        Console.WriteLine(persoon.ToString());
+                        persoon.Afbeelden();
                         Console.WriteLine();
                     }
-                Console.WriteLine();
                 Console.WriteLine("Cabinepersoneel");
                 lijn.TrekLijn(18, '-');
                 foreach (VliegendPersoneelslid persoon in vlucht.Personeel)
                     if (persoon is CabinePersoneelslid)
                     {
-                        Console.WriteLine(persoon.EersteStuk());
-                        foreach (var certificaat in persoon.Certificaten)
-                            Console.WriteLine($"   {certificaat.CertificaatOmschrijving} ({certificaat.CertificaatAfkorting})");
-                        Console.WriteLine(persoon.ToString());
+                        persoon.Afbeelden();
                         Console.WriteLine();
                     }
             }

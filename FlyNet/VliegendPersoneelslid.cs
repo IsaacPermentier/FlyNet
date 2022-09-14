@@ -17,17 +17,19 @@ namespace FlyNet.Personeel
             Certificaten = certificaten;
         }
         public override abstract decimal BerekenTotaleKostprijsperDag();
-        public string EersteStuk()
-        {
-            return @$"00{PersoneelslidID} - {Naam} (basiskostprijs per dag: {BasisKostprijsPerDag} euro)
-Graad: {Graad}
-Certificaten: ";
-        }
         public override string ToString()
         {
             return @$"00{PersoneelslidID} - {Naam} (basiskostprijs per dag: {BasisKostprijsPerDag} euro)
 Graad: {Graad}
-Certificaten: ";
+Certificaten: {Certificaten}";
+        }
+        public virtual void Afbeelden()
+        {
+            Console.WriteLine($"00{PersoneelslidID} - {Naam} (basiskostprijs per dag: {BasisKostprijsPerDag} euro)");
+            Console.WriteLine($"Graad: {Graad}");
+            Console.WriteLine("Certificaten: ");
+            foreach (var certificaat in Certificaten)
+                Console.WriteLine($"   {certificaat.CertificaatOmschrijving} ({certificaat.CertificaatAfkorting})");
         }
     }
 }
